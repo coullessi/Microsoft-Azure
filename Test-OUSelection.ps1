@@ -51,3 +51,39 @@ do {
         continue
     }
 } while ($choice -eq "Y")
+
+
+# TODO: create a function for user choice
+# TODO: create a function for cycling though the list of OUs
+function Get-UserChoice {
+    param (
+        [string]$Message,
+        [string]$Prompt
+    )
+    Write-Host $Message -ForegroundColor Yellow
+    $choice = Read-Host $Prompt
+    return $choice
+}
+
+function Get-OU {
+    param (
+        [string]$Message,
+        [string]$Prompt
+    )
+    Write-Host $Message -ForegroundColor Yellow
+    $OUs = @()
+    $OUs += Get-ADOrganizationalUnit -Filter *
+    $OUs | Format-Table Name, DistinguishedName -AutoSize
+    $ouNumbers = @()
+    for ($i = 0; $i -lt $OUs.Count; $i++) {
+        "$($i+1). $($OUs[$i])"
+        $ouNumbers += $i + 1
+    }
+    $ouNumber = Read-Host $Prompt
+    while ($ouNumber -notin $ouNumbers) {
+        Write-Host "Enter a correct number. The number must be between 1 and $($ouNumbers.Count)" -ForegroundColor Yellow
+        $ouNumber = Read-Host $Prompt
+    }
+    return $OUs[$ouNumber - 1]
+}
+#endregion
