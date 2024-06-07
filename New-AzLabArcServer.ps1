@@ -110,11 +110,12 @@ function New-AzLabArcServer {
         -TenantId $TenantId
 
 
-    #$arcServerOUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "Arc Servers" -Or Name -eq "Domain Controllers"').DistinguishedName
-    $arcServerOUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "OU1" -Or Name -eq "OU2"').DistinguishedName
+    #$OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "Arc Servers" -Or Name -eq "Domain Controllers"').DistinguishedName
+    #$OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "OU1" -Or Name -eq "OU2"').DistinguishedName
+    #$OUs = @
     $GPOName = (Get-GPO -All -Domain $DomainFQDN | Where-Object { $_.DisplayName -Like "*MSFT*" }).DisplayName  
-    Write-Host "`nLinking the GPO to the $arcServerOUs Organizational Unit" -ForegroundColor Yellow
-    foreach ($OU in $arcServerOUs) {
+    Write-Host "`nLinking the GPO to the $OUs Organizational Unit" -ForegroundColor Yellow
+    foreach ($OU in $OUs) {
         New-GPLink -Name "$GPOName" -Target "$OU" -LinkEnabled Yes | Out-Null
     }
 
@@ -122,3 +123,92 @@ function New-AzLabArcServer {
     Write-Host
 }
 New-AzLabArcServer
+
+
+#region OU selection
+Clear-Host
+Write-Host "Getting the list of organizational units in the domain..." -ForegroundColor Yellow
+$OUs = @()
+$arcServerOUs = @()
+$OUs += Get-ADOrganizationalUnit -Filter *
+
+$OUs | Format-Table Name, DistinguishedName -AutoSize
+
+$adDomain = (Get-ADDomain).DNSRoot
+if ($OUs.Count -eq 0) {
+    Write-Host "No organizational units found. Exiting..." -ForegroundColor Yellow
+    break
+}
+else {
+    Write-Host -ForegroundColor Green "`nList of organizational units in the domain '$adDomain'"
+    $ouNumbers = @()
+    for ($i = 0; $i -lt $OUs.Count; $i++) {
+        "$($i+1). $($OUs[$i])"
+        $ouNumbers += $i + 1
+    }
+}
+
+do {
+    $ouNumber = Read-Host "`nSelect an organizational unit, e.g. 1, 2, 3, etc."
+    while ($ouNumber -notin $ouNumbers) {
+        Write-Host "Enter a correct number. The number must be between 1 and $($ouNumbers.Count)" -ForegroundColor Yellow
+        $ouNumber = Read-Host "Select an organizational unit, e.g. 1, 2, 3, etc."
+    }
+    $arcServerOUs += $OUs[$ouNumber]
+    
+    # $arcServerOUs += $arcServerOUs
+    #$arcServerOUs | Format-Table Name, DistinguishedName -AutoSize
+
+    # TODO: cycle though and remove the OU the selected from the list
+    $OUs = $OUs | Where-Object { $_.DistinguishedName -ne $OU.DistinguishedName }
+    # Clear-Host
+    Write-Host "`nRemainng organizational units in the domain '$adDomain' to select from." -ForegroundColor Yellow
+    $OUs | Format-Table Name, DistinguishedName -AutoSize
+    $choice = Read-Host "Would you like to select another organizational unit to link the GPO to (Yes=Y / No=N)?"
+    $choice = $choice.Trim('o', 'e', 's').ToUpper()
+    while ($choice -notin "Y", "N") {
+        Write-Host "Enter a correct answer. The answer must be Y or N" -ForegroundColor Yellow
+        $choice = Read-Host "Would you like to select another organizational unit to link the GPO to (Yes=Y / No=N)?"
+    }
+    if ($choice -eq "N") {
+        Write-Host $arcServerOUs | Format-Table Name, DistinguishedName -AutoSize
+    }
+    else {
+        continue
+    }
+} while ($choice -eq "Y")
+
+# TODO: create a function for user choice
+# TODO: create a function for cycling though the list of OUs
+function Get-UserChoice {
+    param (
+        [string]$Message,
+        [string]$Prompt
+    )
+    Write-Host $Message -ForegroundColor Yellow
+    $choice = Read-Host $Prompt
+    return $choice
+}
+
+function Get-OU {
+    param (
+        [string]$Message,
+        [string]$Prompt
+    )
+    Write-Host $Message -ForegroundColor Yellow
+    $OUs = @()
+    $OUs += Get-ADOrganizationalUnit -Filter *
+    $OUs | Format-Table Name, DistinguishedName -AutoSize
+    $ouNumbers = @()
+    for ($i = 0; $i -lt $OUs.Count; $i++) {
+        "$($i+1). $($OUs[$i])"
+        $ouNumbers += $i + 1
+    }
+    $ouNumber = Read-Host $Prompt
+    while ($ouNumber -notin $ouNumbers) {
+        Write-Host "Enter a correct number. The number must be between 1 and $($ouNumbers.Count)" -ForegroundColor Yellow
+        $ouNumber = Read-Host $Prompt
+    }
+    return $OUs[$ouNumber - 1]
+}
+#endregion
