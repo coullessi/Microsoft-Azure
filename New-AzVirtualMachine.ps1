@@ -302,6 +302,8 @@ else {
 
     Write-Host
     Write-Host
+    Write-Host "You can now connect to your deployed virtual machines, but before you do, enable just-in-time access." -ForegroundColor Green
+    Write-Host "No management port (SSH - TCP port 22 or RDP - TCP port 3389) is currently opened!" -ForegroundColor Green
     Write-Host "Connect to VMs" -ForegroundColor Green
     Write-Host "Windows VM: mstsc /v:PublicIPAddress" -ForegroundColor Cyan
     Write-Host "Linux VM: ssh user@PublicIPAddress" -ForegroundColor Cyan
