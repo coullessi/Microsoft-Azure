@@ -108,7 +108,7 @@ function New-AzLabVm {
             Write-Host "You must enter a name for your new resource group" -ForegroundColor Yellow
             $resourceGroup = Read-Host "Provide a name for your new resource group" 
         }
-        $resourceGroup = $resourceGroup + (Get-Random -Minimum 10000 -Maximum 99999) + "-RG"
+        $resourceGroup = $resourceGroup + "-RG" #(Get-Random -Minimum 10000 -Maximum 99999) + "-RG"
         $location = Read-Host "Provide a location for your deployment (e.g. West US, East US, etc.)"
         $locations = @("eastus", "eastus2", "westus", "westus2", "east us", "east us 2", "west us", "west us 2")
         while ($locations -notcontains $location.ToLower()) {
