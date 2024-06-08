@@ -1,5 +1,6 @@
 # https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-group-policy-powershell
 # Run the script in PowerShell as administrator
+
 function New-AzLabArcServer {
 
     Clear-Host
@@ -109,12 +110,13 @@ function New-AzLabArcServer {
         -Location $Location `
         -TenantId $TenantId
 
+    # TODO: Implement and Call the Select-OU function
+    # Select-OU
 
+    $OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "OU1" -Or Name -eq "OU2" -Or Name -eq "OU3"').DistinguishedName
     #$OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "Arc Servers" -Or Name -eq "Domain Controllers"').DistinguishedName
-    #$OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "OU1" -Or Name -eq "OU2"').DistinguishedName
-    #$OUs = @
     $GPOName = (Get-GPO -All -Domain $DomainFQDN | Where-Object { $_.DisplayName -Like "*MSFT*" }).DisplayName  
-    Write-Host "`nLinking the GPO to the $OUs Organizational Unit" -ForegroundColor Yellow
+    Write-Host "`nLinking the GPO to the selected organizational units" -ForegroundColor Yellow
     foreach ($OU in $OUs) {
         New-GPLink -Name "$GPOName" -Target "$OU" -LinkEnabled Yes | Out-Null
     }
