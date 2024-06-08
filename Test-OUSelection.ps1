@@ -22,16 +22,15 @@ else {
 
 $arcServerOUs = @()
 do {
-    $ouNumber = Read-Host "`nSelect an organizational unit, e.g. 1, 2, 3, etc."
+    $ouNumber = Read-Host "`nSelect an organizational unit, e.g. 1, 2, 3."
     while ($ouNumber -notin $ouNumbers) {
         Write-Host "Enter a correct number. The number must be between 1 and $($ouNumbers.Count)" -ForegroundColor Yellow
-        $ouNumber = Read-Host "Select an organizational unit, e.g. 1, 2, 3, etc."
+        $ouNumber = Read-Host "Select an organizational unit, e.g. 1, 2, 3."
     }
     $arcServerOUs += $OUs[$ouNumber - 1]
     $selectedOU = $OUs[$ouNumber - 1]
     
     $OUs = $OUs | Where-Object { $_.DistinguishedName -ne $selectedOU.DistinguishedName }
-    # Clear-Host
     Write-Host "`nRemainng organizational units in the domain '$adDomain' to select from." -ForegroundColor Yellow
 
     $ouNumbers = @()
@@ -50,7 +49,8 @@ do {
     }
     
     if ($choice -eq "N") {
-        Write-Host $arcServerOUs
+        Write-Host "`nList of selected organizational units" -ForegroundColor Green
+        $arcServerOUs.DistinguishedName
     }
     else {
         continue
