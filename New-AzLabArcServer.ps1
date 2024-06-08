@@ -110,7 +110,7 @@ function New-AzLabArcServer {
         -Location $Location `
         -TenantId $TenantId
 
-    # TODO: Implement and Call the Select-OU function
+    # TODO: Implement and call the Select-OU function
     # Select-OU
 
     $OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "OU1" -Or Name -eq "OU2" -Or Name -eq "OU3"').DistinguishedName
