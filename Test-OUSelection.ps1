@@ -1,10 +1,10 @@
 Clear-Host
 Write-Host "Getting the list of organizational units in the domain..." -ForegroundColor Yellow
 $OUs = @()
-$arcServerOUs = @()
+    
 $OUs += Get-ADOrganizationalUnit -Filter *
 
-$OUs | Format-Table Name, DistinguishedName -AutoSize
+#$OUs | Format-Table Name, DistinguishedName -AutoSize
 
 $adDomain = (Get-ADDomain).DNSRoot
 if ($OUs.Count -eq 0) {
@@ -20,30 +20,35 @@ else {
     }
 }
 
+$arcServerOUs = @()
 do {
     $ouNumber = Read-Host "`nSelect an organizational unit, e.g. 1, 2, 3, etc."
     while ($ouNumber -notin $ouNumbers) {
         Write-Host "Enter a correct number. The number must be between 1 and $($ouNumbers.Count)" -ForegroundColor Yellow
         $ouNumber = Read-Host "Select an organizational unit, e.g. 1, 2, 3, etc."
     }
-    $arcServerOUs += $OUs[$ouNumber -1]
-    $selectedOU = $OUs[$ouNumber -1]
+    $arcServerOUs += $OUs[$ouNumber - 1]
+    $selectedOU = $OUs[$ouNumber - 1]
     
-    # $arcServerOUs += $arcServerOUs
-    #$arcServerOUs | Format-Table Name, DistinguishedName -AutoSize
-
-    # TODO: cycle though and remove the OU the selected from the list
     $OUs = $OUs | Where-Object { $_.DistinguishedName -ne $selectedOU.DistinguishedName }
     # Clear-Host
     Write-Host "`nRemainng organizational units in the domain '$adDomain' to select from." -ForegroundColor Yellow
-    $OUs | Format-Table Name, DistinguishedName -AutoSize
+
+    $ouNumbers = @()
+    for ($i = 0; $i -lt $OUs.Count; $i++) {
+        "$($i+1). $($OUs[$i])"
+        $ouNumbers += $i + 1
+    }
+
+    #$OUs | Format-Table Name, DistinguishedName -AutoSize
     $choice = Read-Host "Would you like to select another organizational unit to link the GPO to (Yes=Y / No=N)?"
     $choice = $choice.Trim('o', 'e', 's').ToUpper()
     while ($choice -notin "Y", "N") {
         Write-Host "Enter a correct answer. The answer must be Y or N" -ForegroundColor Yellow
-        $choice = Read-Host "Would you like to select another organizational unit to link the GPO to (Yes=Y / No=N)?"
+        $choice = Read-Host "`nWould you like to select another organizational unit to link the GPO to (Yes=Y / No=N)?"
+        $arcServerOUs += $OUs[$ouNumber - 1]
     }
-    $arcServerOUs += $OUs[$ouNumber -1]
+    
     if ($choice -eq "N") {
         Write-Host $arcServerOUs
     }
@@ -51,39 +56,4 @@ do {
         continue
     }
 } while ($choice -eq "Y")
-
-
-# TODO: create a function for user choice
-# TODO: create a function for cycling though the list of OUs
-function Get-UserChoice {
-    param (
-        [string]$Message,
-        [string]$Prompt
-    )
-    Write-Host $Message -ForegroundColor Yellow
-    $choice = Read-Host $Prompt
-    return $choice
-}
-
-function Get-OU {
-    param (
-        [string]$Message,
-        [string]$Prompt
-    )
-    Write-Host $Message -ForegroundColor Yellow
-    $OUs = @()
-    $OUs += Get-ADOrganizationalUnit -Filter *
-    $OUs | Format-Table Name, DistinguishedName -AutoSize
-    $ouNumbers = @()
-    for ($i = 0; $i -lt $OUs.Count; $i++) {
-        "$($i+1). $($OUs[$i])"
-        $ouNumbers += $i + 1
-    }
-    $ouNumber = Read-Host $Prompt
-    while ($ouNumber -notin $ouNumbers) {
-        Write-Host "Enter a correct number. The number must be between 1 and $($ouNumbers.Count)" -ForegroundColor Yellow
-        $ouNumber = Read-Host $Prompt
-    }
-    return $OUs[$ouNumber - 1]
-}
-#endregion
+Write-host "`nExiting..."
