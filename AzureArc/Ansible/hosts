@@ -1,0 +1,5 @@
+[redhat]
+LAB-RHEMN ansible_ssh_host=10.0.0.125
+
+[ubuntu]
+LAB-UBTMN ansible_ssh_host=10.0.0.143

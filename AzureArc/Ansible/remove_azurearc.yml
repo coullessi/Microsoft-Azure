@@ -1,0 +1,11 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Uninstall Linux Agent - Debian
+      ansible.builtin.shell:
+        cmd: sudo apt purge azcmagent -y
+      when: ansible_os_family == "Debian"
+    - name: Uninstall Linux Agent - RedHat
+      ansible.builtin.shell:
+        cmd: sudo yum remove azcmagent -y
+      when: ansible_os_family == "RedHat"
