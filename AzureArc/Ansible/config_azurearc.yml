@@ -3,8 +3,8 @@
   hosts: all
   vars:
     azure:
-      service_principal_id:
-      service_principal_secret:
+      service_principal_id: ''
+      service_principal_secret: ''
       resource_group: ''
       tenant_id: ''
       subscription_id: ''
