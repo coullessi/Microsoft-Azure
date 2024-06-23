@@ -53,7 +53,7 @@ while ($locations -notcontains $location.ToLower()) {
     $location = Read-Host "Provide a location for your deployment (e.g. West US, WestUS, East US,EastUS2, etc.)"
 }
 # 3. Create a resource group
-Write-Host "Creating a resource group" -ForegroundColor Yellow
+Write-Host "`nCreating a resource group" -ForegroundColor Yellow
 New-AzResourceGroup -Name $resourceGroup -Location $location | Out-Null
 
 
@@ -68,7 +68,7 @@ $date = Get-Date
 "Service principal creation date: $date`nSecret expiration date: $($date.AddDays(7))" | Out-File -FilePath $ArcServerOnboardingDetailFile -Append
 "------------------------------------------------------------------" | Out-File -FilePath $ArcServerOnboardingDetailFile -Append
 #$ServicePrincipal = New-AzADServicePrincipal -EndDate $date.AddDays(7) -DisplayName "Arc server onboarding account for Linux - $(Get-Random -Maximum 1000)" -Role "Azure Connected Machine Onboarding" -Scope "/subscriptions/$subId/resourceGroups/$resourceGroup"
-$ServicePrincipal = New-AzADServicePrincipal -EndDate $date.AddDays(7) -DisplayName "Arc server onboarding account for Linux" -Role "Azure Connected Machine Onboarding" -Scope "/subscriptions/$subId/resourceGroups/$resourceGroup"
+$ServicePrincipal = New-AzADServicePrincipal -EndDate $date.AddDays(7) -DisplayName "Arc server onboarding account - Linux Server" -Role "Azure Connected Machine Onboarding" -Scope "/subscriptions/$subId/resourceGroups/$resourceGroup"
 #$ServicePrincipal | Format-Table AppId, @{ Name = "Secret"; Expression = { $_.PasswordCredentials.SecretText } }
 
 Write-Host -ForegroundColor Yellow "----------------------------------------------------------------------------"

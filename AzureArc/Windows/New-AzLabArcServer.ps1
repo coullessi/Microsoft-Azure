@@ -89,7 +89,7 @@ function New-AzLabArcServer {
     $ArcServerOnboardingDetail = New-Item -ItemType File -Path "$path\ArcServerOnboarding.txt"
     "------------------------------------------------------------------------------" | Out-File -FilePath $ArcServerOnboardingDetail -Append
     "`nService principal creation date: $date`nSecret expiration date: $($date.AddDays(7))" | Out-File -FilePath $ArcServerOnboardingDetail -Append
-    $ServicePrincipal = New-AzADServicePrincipal -EndDate $date.AddDays(7) -DisplayName "Arc Server Onboarding Account - Windows" -Role "Azure Connected Machine Onboarding" -Scope "/subscriptions/$subId/resourceGroups/$resourceGroup"
+    $ServicePrincipal = New-AzADServicePrincipal -EndDate $date.AddDays(7) -DisplayName "Arc Server Onboarding Account - Windows Server" -Role "Azure Connected Machine Onboarding" -Scope "/subscriptions/$subId/resourceGroups/$resourceGroup"
     $ServicePrincipal | Format-Table AppId, @{ Name = "Secret"; Expression = { $_.PasswordCredentials.SecretText } } | Out-File -FilePath $ArcServerOnboardingDetail -Append
     "`n------------------------------------------------------------------------------" | Out-File -FilePath $ArcServerOnboardingDetail -Append
     $AppId = $ServicePrincipal.AppId
@@ -113,8 +113,8 @@ function New-AzLabArcServer {
     # TODO: Implement and call the Select-OU function
     # Select-OU
 
-    $OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "OU1" -Or Name -eq "OU2" -Or Name -eq "OU3"').DistinguishedName
-    #$OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "Arc Servers" -Or Name -eq "Domain Controllers"').DistinguishedName
+    #$OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "OU1" -Or Name -eq "OU2" -Or Name -eq "OU3"').DistinguishedName
+    $OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "Arc Servers" -Or Name -eq "Domain Controllers"').DistinguishedName
     $GPOName = (Get-GPO -All -Domain $DomainFQDN | Where-Object { $_.DisplayName -Like "*MSFT*" }).DisplayName  
     Write-Host "`nLinking the GPO to the selected organizational units" -ForegroundColor Yellow
     foreach ($OU in $OUs) {
