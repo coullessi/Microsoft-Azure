@@ -35,7 +35,7 @@ function New-AzLabArcServer {
     Write-Host -ForegroundColor Cyan "Subscription name: `"$subName`" will be use for your deployment" 
     Set-AzContext -SubscriptionId $subId | Out-Null
 
-    # 2. Register resource providers
+    # 2. Register Azure resource providers
     Write-Host "Registering resource providers" -ForegroundColor Yellow
     Register-AzResourceProvider -ProviderNamespace Microsoft.HybridCompute | Out-Null
     Register-AzResourceProvider -ProviderNamespace Microsoft.GuestConfiguration | Out-Null
@@ -115,7 +115,6 @@ function New-AzLabArcServer {
     # TODO: Implement and call the Select-OU function
     # Select-OU
 
-    #$OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "OU1" -Or Name -eq "OU2" -Or Name -eq "OU3"').DistinguishedName
     $OUs = (Get-ADOrganizationalUnit -Filter 'Name -eq "Arc Servers" -Or Name -eq "Domain Controllers"').DistinguishedName
     $GPOName = (Get-GPO -All -Domain $DomainFQDN | Where-Object { $_.DisplayName -Like "*MSFT*" }).DisplayName  
     Write-Host "`nLinking the GPO to the selected organizational units" -ForegroundColor Yellow
