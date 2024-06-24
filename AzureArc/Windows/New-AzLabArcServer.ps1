@@ -75,7 +75,7 @@ function New-AzLabArcServer {
     }
     $RemoteShare = (Get-SmbShare | Where-Object { $_.Name -eq "AzureArc" }).Name
 
-
+    # 5. Download the onboarding files
     Write-Host "Downloading the Azure Connected Machine Agent and the Arc enabled servers group policy" -ForegroundColor Yellow
     Invoke-WebRequest -Uri "https://aka.ms/AzureConnectedMachineAgent" -OutFile "$path\AzureConnectedMachineAgent.msi"
     Invoke-WebRequest -Uri "https://github.com/Azure/ArcEnabledServersGroupPolicy/releases/download/1.0.5/ArcEnabledServersGroupPolicy_v1.0.5.zip" -OutFile "$path\ArcEnabledServersGroupPolicy_v1.0.5.zip"
@@ -84,6 +84,7 @@ function New-AzLabArcServer {
     Expand-Archive -LiteralPath "$($path)\ArcEnabledServersGroupPolicy_v1.0.5.zip" -DestinationPath $path
     Set-Location -Path "$($path)\ArcEnabledServersGroupPolicy_v1.0.5"
 
+    # 6. Create a service principal for the Azure Connected Machine Agent
     $date = Get-Date
     Write-Host "Creating a service principal" -ForegroundColor Yellow
     $ArcServerOnboardingDetail = New-Item -ItemType File -Path "$path\ArcServerOnboarding.txt"
@@ -95,6 +96,7 @@ function New-AzLabArcServer {
     $AppId = $ServicePrincipal.AppId
     $Secret = $ServicePrincipal.PasswordCredentials.SecretText
 
+    # 7. Deploy the group policy object and link it to the selected organizational units
     $DC = Get-ADDomainController
     $DomainFQDN = $DC.Domain
     $ReportServerFQDN = $DC.HostName
