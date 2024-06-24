@@ -68,7 +68,7 @@ $date = Get-Date
 "Service principal creation date: $date`nSecret expiration date: $($date.AddDays(7))" | Out-File -FilePath $ArcServerOnboardingDetailFile -Append
 "------------------------------------------------------------------" | Out-File -FilePath $ArcServerOnboardingDetailFile -Append
 #$ServicePrincipal = New-AzADServicePrincipal -EndDate $date.AddDays(7) -DisplayName "Arc server onboarding account for Linux - $(Get-Random -Maximum 1000)" -Role "Azure Connected Machine Onboarding" -Scope "/subscriptions/$subId/resourceGroups/$resourceGroup"
-$ServicePrincipal = New-AzADServicePrincipal -EndDate $date.AddDays(7) -DisplayName "Arc server onboarding account - Linux Server" -Role "Azure Connected Machine Onboarding" -Scope "/subscriptions/$subId/resourceGroups/$resourceGroup"
+$ServicePrincipal = New-AzADServicePrincipal -EndDate $date.AddDays(7) -DisplayName "Arc Server Onboarding Account - Linux Server" -Role "Azure Connected Machine Onboarding" -Scope "/subscriptions/$subId/resourceGroups/$resourceGroup"
 #$ServicePrincipal | Format-Table AppId, @{ Name = "Secret"; Expression = { $_.PasswordCredentials.SecretText } }
 
 Write-Host -ForegroundColor Yellow "----------------------------------------------------------------------------"
