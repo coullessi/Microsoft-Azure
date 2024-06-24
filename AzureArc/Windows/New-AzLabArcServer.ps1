@@ -5,7 +5,7 @@ function New-AzLabArcServer {
 
     Clear-Host
 
-    # 1. CONNECT TO AZURE
+    # 1. Connect to Azure
     Write-Host "Connecting to Azure..." -ForegroundColor Yellow
     Connect-AzAccount -WarningAction SilentlyContinue | Out-Null
     $subs = @()
