@@ -1,1 +1,0 @@
-scp -i "E:\Repo\Linux\Connect\LocalHostKey" -r "E:\Repo\Azure\AzureArc\Ansible" lessi@10.0.0.126:~/
