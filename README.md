@@ -22,7 +22,7 @@ Please go to the [video](https://www.youtube.com/playlist?list=PLDI76x8X-DfY7qkJ
 |  | [Remove Azure connect agent from devices](/AzureArc/Linux/Ansible/remove_azurearc.yml) |
 |  | [Script to create a service principal](/AzureArc/Linux/PSScripts/create_service_principal.ps1) |
 
-**Video playlist: [Azure Arc-enabled servers step-by-step guide](https://www.youtube.com/playlist?list=PLDI76x8X-DfY7qkJGn1iob52F2Nh0mO5t)**
+**Video playlist: [Azure Arc-enabled servers step-by-step guide](https://www.youtube.com/playlist?list=PLDI76x8X-DfY7qkJGn1iob52F2Nh0mO5t)**  
 
 ## Documentation
 
