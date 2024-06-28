@@ -7,7 +7,7 @@ To connect hybrid machines to Azure, you install the [Azure Connected Machine ag
 - Manage the server using Automation runbooks or solutions like Update Management.
 - Use other Azure services like [Microsoft Defender for Cloud](https://learn.microsoft.com/en-us/azure/security-center/security-center-introduction). For example, with your Microsoft Defender for Servers plan, you'll be able to automatically onboard your endpoint to Microsoft Defender for Endpoint, once you onboard them to Azure Arc. And there is a great tech community article series titled [The ultimate guide to deciphering Azure Agents and Defender for Servers](https://techcommunity.microsoft.com/t5/fasttrack-for-azure/the-ultimate-guide-to-deciphering-azure-agents-defender-for/ba-p/4110383) that covers when it's appropriate to use Azure Arc.
 
-You can install the Connected Machine agent manually, or on multiple servers at scale, using a [Deployment method](https://learn.microsoft.com/en-us/azure/azure-arc/servers/deployment-options) that works best for you.
+You can install the Connected Machine agent manually, or on multiple servers at scale, using a [deployment method](https://learn.microsoft.com/en-us/azure/azure-arc/servers/deployment-options) that works best for you.
 And in this exercise, we are going to do just that, we are going to onboard, at scale multiple Windows servers to Azure Arc using a Group Policy Object and an Ansible playbook for Linux Servers.
 
 Please go to the [video](https://www.youtube.com/playlist?list=PLDI76x8X-DfY7qkJGn1iob52F2Nh0mO5t) recording for a step-by-step process.
