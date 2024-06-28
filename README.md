@@ -14,22 +14,23 @@ Please go to the [video](https://www.youtube.com/playlist?list=PLDI76x8X-DfY7qkJ
 
 ## Lab resources
 
-1. Windows
-    - [Onboard Server to Azure Arc](/AzureArc/Windows/New-AzLabArcServer.ps1)
-2. Linux
-    - [Configure ansible control node](/AzureArc/Linux/Ansible/config_control_node.sh)
-    - [Ansible playbook](/AzureArc/Linux/Ansible/config_azurearc.yml)
-    - [Sample hosts file](/AzureArc/Linux/Ansible/hosts)
-    - [Remove Azure connect agent from devices](/AzureArc/Linux/Ansible/remove_azurearc.yml)
-    - [Script to create a service principal](/AzureArc/Linux/PSScripts/create_service_principal.ps1)
+| Windows Server | Linux Servers |
+| ------------- | ------------- |
+| [Onboard Server to Azure Arc](/AzureArc/Windows/New-AzLabArcServer.ps1) | [Configure ansible control node](/AzureArc/Linux/Ansible/config_control_node.sh) |
+|  | [Ansible playbook](/AzureArc/Linux/Ansible/config_azurearc.yml) |
+|  | [Sample hosts file](/AzureArc/Linux/Ansible/hosts) |
+|  | [Remove Azure connect agent from devices](/AzureArc/Linux/Ansible/remove_azurearc.yml) |
+|  | [Script to create a service principal](/AzureArc/Linux/PSScripts/create_service_principal.ps1) |
 
-**Video recordings: [Azure Arc-enabled servers step-by-step guide](https://www.youtube.com/playlist?list=PLDI76x8X-DfY7qkJGn1iob52F2Nh0mO5t)**
+**Video playlist: [Azure Arc-enabled servers step-by-step guide](https://www.youtube.com/playlist?list=PLDI76x8X-DfY7qkJGn1iob52F2Nh0mO5t)**
 
 ## Documentation
 
-- [What is Azure Arc-Enabled Servers?](https://learn.microsoft.com/en-us/azure/azure-arc/servers/overview)
-- [Connect machines at scale using Group Policy](https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-group-policy-powershell)
-- [Connect machines at scale using Ansible playbooks](https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-ansible-playbooks)
+[What is Azure Arc-Enabled Servers?](https://learn.microsoft.com/en-us/azure/azure-arc/servers/overview)  
+[Prerequisites](https://learn.microsoft.com/en-us/azure/azure-arc/servers/prerequisites)  
+[Network requirements](https://learn.microsoft.com/en-us/azure/azure-arc/servers/prerequisites)  
+[Connect machines at scale using Group Policy](https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-group-policy-powershell)  
+[Connect machines at scale using Ansible playbooks](https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-ansible-playbooks)
 
 ---
 
