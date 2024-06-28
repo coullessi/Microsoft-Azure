@@ -1,4 +1,4 @@
-# Microsoft Azure Connected Machines
+# Azure Arc-enable servers
 
 In this lab exercise, you'll learn to connect machines at scale using a group policy object or Ansible. But,
 What is Azure Arc and how can it be beneficial to your organization? Azure Arc is a Microsoft Azure solution that allows you to manage Windows and Linux servers hosted outside of Azure; the servers can be on-premises or in other clouds like Google Cloud Platform, or Amazon Web Services. The machines hosted outside of Azure are considered hybrid machines. And when a hybrid device is connected to Azure, it becomes a connected machine and is treated as a resource in Azure. Each connected device has a Resource ID enabling the device to be included in a resource group.
