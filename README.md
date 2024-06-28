@@ -10,7 +10,7 @@ To connect hybrid machines to Azure, you install the [Azure Connected Machine ag
 You can install the Connected Machine agent manually, or on multiple servers at scale, using a [deployment method](https://learn.microsoft.com/en-us/azure/azure-arc/servers/deployment-options) that works best for you.
 And in this exercise, we are going to do just that, we are going to onboard, at scale multiple Windows servers to Azure Arc using a Group Policy Object and an Ansible playbook for Linux Servers.
 
-Please go to the [video](https://www.youtube.com/playlist?list=PLDI76x8X-DfY7qkJGn1iob52F2Nh0mO5t) recording for a step-by-step process to onboard your servers to Azure Arc.
+Please go to the [video](https://youtu.be/1qCiTYG2fgI?si=qmCQj8Kw4GBxOy81) recording for a step-by-step process to onboard your servers to Azure Arc.
 
 ## Lab resources
 
@@ -22,7 +22,7 @@ Please go to the [video](https://www.youtube.com/playlist?list=PLDI76x8X-DfY7qkJ
 |  | [Remove Azure connect agent from devices](/AzureArc/Linux/Ansible/remove_azurearc.yml) |
 |  | [Script to create a service principal](/AzureArc/Linux/PSScripts/create_service_principal.ps1) |
 
-**Video playlist: [Azure Arc-enabled servers step-by-step guide](https://youtu.be/1qCiTYG2fgI?si=qmCQj8Kw4GBxOy81)**  
+**Video playlist: [Azure Arc-enabled servers step-by-step guide](https://www.youtube.com/playlist?list=PLDI76x8X-DfY7qkJGn1iob52F2Nh0mO5t)**  
 
 ## Documentation
 
