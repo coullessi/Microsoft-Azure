@@ -11,7 +11,7 @@ You can install the Connected Machine agent manually, or on multiple servers at 
 And in this exercise, we are going to do just that, we are going to onboard, at scale multiple Windows servers to Azure Arc using a Group Policy Object and an Ansible playbook for Linux Servers.
 
 >[!Important]
-In addition to the __lab resource files__, please go to the [video](https://youtu.be/1qCiTYG2fgI?si=qmCQj8Kw4GBxOy81) recording for a step-by-step process to onboard your servers to Azure Arc.
+In addition to the `lab resource files`, please go to the [video](https://youtu.be/1qCiTYG2fgI?si=qmCQj8Kw4GBxOy81) recording for a step-by-step process to onboard your servers to Azure Arc.
 
 ## Lab resources
 
